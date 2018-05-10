@@ -1,5 +1,8 @@
-import { Component ,ViewChild} from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HomePage } from '../home/home';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { RestapiProvider } from '../../providers/restapi/restapi';
 
 
 @IonicPage()
@@ -9,19 +12,32 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RegisterPage {
 
-  @ViewChild('username') user;
-  @ViewChild('password') password;
+    addMemberForm: FormGroup = new FormGroup({
+      room: new FormControl(null, Validators.required),
+      membername: new FormControl(null, Validators.required),
+      email: new FormControl(null, Validators.required),
+      tel: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required),
+      cpass: new FormControl(null, Validators.required)
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    })
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public restful: RestapiProvider) { }
+    
+ 
+
+  registerMember(){
+    if (!this.addMemberForm.valid || (this.addMemberForm.controls.password.value != this.addMemberForm.controls.cpass.value)) {
+      console.log('Invalid Form'); return;
+    }
+      this.restful.register(JSON.stringify(this.addMemberForm.value))
+      .subscribe(data => {console.log(data);this.navCtrl.push(HomePage);},
+      error=>console.error(error)
+      
+      
+  //console.log(JSON.stringify(this.addMemberForm.value));
+  )
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
-  }
-
-  registerUser(){
-    console.log('Would sign in with', this.user.value, this.password.value)
-
-  }
-
 }
+

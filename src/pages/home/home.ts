@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { LoginPage } from '../login/login';
 import { RegisterPage } from '../register/register';
+
 
 
 @Component({
@@ -10,20 +10,23 @@ import { RegisterPage } from '../register/register';
 })
 export class HomePage {
 
-  @ViewChild('username') uname;
+  @ViewChild('username') user;
   @ViewChild('password') password;
 
-
   constructor(public navCtrl: NavController) {
-
   }
 
-  signIn() {
-    this.navCtrl.push(LoginPage);
+
+
+  signInUser() {
+    console.log('Would sign in with', this.user.value, this.password.value)
   }
+
+ 
 
   register() {
     this.navCtrl.push(RegisterPage);
   }
+
 
 }

@@ -1,14 +1,31 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-       IoT Smart Meter Application
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            IoT Smart Meter Application
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <div id="topButtons">
-  <button ion-button (click)="signIn()">Sign In</button>
-  <button ion-button (click)="register()">Register</button>
-  </div>
+
+    <ion-list>
+
+        <ion-item>
+            <ion-label floating>Username</ion-label>
+            <ion-input type="text" #username></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input type="password" #password></ion-input>
+        </ion-item>
+
+
+
+    </ion-list>
+
+    <div id="topButtons">
+        <button block ion-button (click)="signInUser()">Sign In</button>
+        <button ion-button (click)="register()" item-left>Register</button>
+    </div>
 </ion-content>
