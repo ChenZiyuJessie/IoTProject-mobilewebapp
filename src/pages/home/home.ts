@@ -1,7 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
-
+import { FormGroup,FormControl,Validators } from '@angular/forms';
+import { RestapiProvider } from '../../providers/restapi/restapi';
+import { MemberPage } from '../member/member';
 
 
 @Component({
@@ -9,24 +11,33 @@ import { RegisterPage } from '../register/register';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  
+  loginForm: FormGroup = new FormGroup({
+    membername: new FormControl(null, Validators.required),
+    password: new FormControl(null, Validators.required)
+  });
 
-  @ViewChild('username') user;
-  @ViewChild('password') password;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,
+              public restful:RestapiProvider) {
   }
 
 
-
-  signInUser() {
-    console.log('Would sign in with', this.user.value, this.password.value)
+  login(){
+    if (!this.loginForm.valid) {
+      console.log('Invalid'); return;
+    }
+    this.restful.login(JSON.stringify(this.loginForm.value))
+      .subscribe(
+        data => { console.log(data); this.navCtrl.push(MemberPage)},
+        error => console.error(error)
+      )
   }
-
- 
+  
+  
 
   register() {
     this.navCtrl.push(RegisterPage);
   }
-
 
 }

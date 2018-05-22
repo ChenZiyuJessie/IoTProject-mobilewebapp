@@ -9,11 +9,13 @@ import { HomePage } from '../pages/home/home';
 import { RegisterPage} from "../pages/register/register";
 import { RestapiProvider } from '../providers/restapi/restapi';
 import { HttpClientModule } from '@angular/common/http';
+import { MemberPage} from '../pages/member/member';
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     RegisterPage,
+    MemberPage
     
   ],
   imports: [
@@ -25,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
   entryComponents: [
     MyApp,
     HomePage,
-    RegisterPage
+    RegisterPage,
+    MemberPage
   ],
   providers: [
     StatusBar,
